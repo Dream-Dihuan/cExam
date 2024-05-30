@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 定义要下载的文件的URL
+    const fileUrl = 'https://dihuan.site/document.rar';
+
+    // 使用fetch API下载文件
+    fetch(fileUrl)
+        .then(response => {
+            // 将响应转换为blob对象
+            return response.blob();
+        })
+        .then(blob => {
+            // 创建一个URL对象，指向blob
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            // 创建一个 <a> 元素
+            const link = document.createElement('a');
+
+            // 设置<a>元素的href属性为blob URL
+            link.href = blobUrl;
+
+            // 设置<a>元素的download属性为要保存的文件名
+            link.download = 'downloaded_file.html';
+
+            // 将<a>元素添加到页面中
+            document.body.appendChild(link);
+
+            // 模拟点击<a>元素来触发下载
+            link.click();
+
+            // 清理URL对象
+            window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch(error => {
+            console.error('下载文件时出错：', error);
+        });
+
+</script>
+
+</html>
